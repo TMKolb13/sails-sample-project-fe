@@ -30,8 +30,15 @@
  (function(){
 
    $(function(){
-
    	//code goes here
+
+      $("option").addClass("glyphicon glyphicon-sunglasses")
+
+      $('#student_id').selectpicker({
+         liveSearch: true,
+         header: "Available Students",
+         title: "Select",
+      });
 
    })
 

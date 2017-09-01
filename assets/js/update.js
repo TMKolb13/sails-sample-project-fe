@@ -45,6 +45,63 @@
    $(function(){
 
     //code goes here
+    let currentStudent;
+
+    $("#updateStudentForm :input").prop("disabled", true);
+
+//i know something about these three lines of code isn't working
+    $("#student_id").on("change", function(){
+      currentStudent = $(this).find("option:selected").val();
+      console.log(currentStudent)
+      $.get("http://localhost:1337/student/"+currentStudent, function(data){
+         $.each(data, function(key, val){
+              let el=$('[name="'+key+'"]');
+              let type = el.attr('type');
+              el.val(val);
+            })
+        })
+        $("#updateStudentForm :input").prop("disabled", false);
+ })
+
+
+    $("#updateStudentForm").validate({
+    errorClass: "text-danger",
+    rules: {
+     first_name: {
+        required: true,
+        minlength: 2
+     },
+     last_name: {
+        required: true,
+        minlength: 2
+     },
+     start_date: {
+        dateISO: true
+     },
+     gpa: {
+        required: true,
+        number: true
+     },
+     sat: {
+        required: true,
+        digits: true
+     },
+     major_id: {
+        required: true,
+        digits: true
+     }
+    },
+    messages: {
+     first_name: {
+        required: "You must enter a first name.",
+        minlength: jQuery.validator.format("At least 2 characters required!")
+     }
+    }
+
+   });
+
+
+
 
    })
 
